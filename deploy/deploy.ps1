@@ -151,8 +151,8 @@ $AzCommands = @{
             resourceId  = $args[1]
             appRoleId   = $args[2]
         }
-        $body = ($request | ConvertTo-Json -Compress).Replace('"', '\"')
-        az rest --method post --url "https://${GraphEndpoint}/v1.0/servicePrincipals/$($args[0])/appRoleAssignments" --body "$body" 2>&1
+        $body = ($request | ConvertTo-Json -Compress).Replace('"', "'")
+        az rest --method post --url "https://${GraphEndpoint}/v1.0/servicePrincipals/$($args[0])/appRoleAssignments" --body "$body" --headers "Content-Type=application/json" 2>&1
     }
     getwebappdeployment            = { az webapp log deployment show --resource-group $args[0] --name $args[1] 2>&1 }
     getmasterkey                   = { az functionapp keys list --resource-group $args[0] --name $args[1] --query masterKey 2>&1 }
